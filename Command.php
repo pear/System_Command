@@ -137,7 +137,7 @@ class System_Command extends PEAR {
         $this->options = array(
             'SEQUENCE'   => true,
             'SHUTDOWN'   => false,
-            'SHELL'      => $in_shell,
+            'SHELL'      => $this->which($in_shell),
             'OUTPUT'     => true,
             'NOHUP'      => false,
             'BACKGROUND' => false,
