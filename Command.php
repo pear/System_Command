@@ -494,7 +494,7 @@ class System_Command extends PEAR {
     function isError($in_value)
     {
         return (is_object($in_value) &&
-                (get_class($in_value) == 'system_command_error' ||
+                (strtolower(get_class($in_value)) == 'system_command_error' ||
                  is_subclass_of($in_value, 'system_command_error')));
     }
     
