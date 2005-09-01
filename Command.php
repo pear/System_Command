@@ -58,7 +58,7 @@ define('SYSTEM_COMMAND_STDERR',           -11);
  */
 
 // }}}
-class System_Command extends PEAR {
+class System_Command {
     // {{{ properties
 
     /**
@@ -118,6 +118,14 @@ class System_Command extends PEAR {
      * @access private
      */
     var $commandStatus = 0;
+    
+    /**
+     * Hold initialization PEAR_Error
+     *
+     * @var object
+     * @access private
+     **/
+    var $_initError = null;
         
     // }}}
     // {{{ constructor
@@ -131,8 +139,6 @@ class System_Command extends PEAR {
      */
     function System_Command($in_shell = null)
     {
-        parent::PEAR();
-
         // Defining constants
         $this->options = array(
             'SEQUENCE'   => true,
@@ -176,7 +182,7 @@ class System_Command extends PEAR {
 
             // see if we still have no shell
             if (empty($this->options['SHELL'])) {
-                $this = PEAR::raiseError(null, SYSTEM_COMMAND_NO_SHELL, null, E_USER_WARNING, null, 'System_Command_Error', true);
+            	$this->_initError =& PEAR::raiseError(null, SYSTEM_COMMAND_NO_SHELL, null, E_USER_WARNING, null, 'System_Command_Error', true);
                 return;
             }
         }
@@ -184,7 +190,7 @@ class System_Command extends PEAR {
         // Caputre a temporary directory for capturing stderr from commands
         $this->tmpdir = System::tmpdir();
         if (!System::mkDir("-p {$this->tmpdir}")) {
-            $this = PEAR::raiseError(null, SYSTEM_COMMAND_TMPDIR_ERROR, null, E_USER_WARNING, null, 'System_Command_Error', true);
+            $this->_initError =& PEAR::raiseError(null, SYSTEM_COMMAND_TMPDIR_ERROR, null, E_USER_WARNING, null, 'System_Command_Error', true);
             return;
         }
     }
@@ -212,6 +218,10 @@ class System_Command extends PEAR {
      */
     function setOption($in_option, $in_setting)
     {
+    	if ($this->_initError) {
+            return $this->_initError;
+        }
+
         $option = strtoupper($in_option);
 
         if (empty($this->options[$option])) {
@@ -270,6 +280,10 @@ class System_Command extends PEAR {
      */
     function pushCommand($in_command)
     {
+    	if ($this->_initError) {
+            return $this->_initError;
+        }
+        
         if (!is_null($this->previousElement) && !in_array($this->previousElement, $this->controlOperators)) {
             $this->commandStatus = -1;
             $error = PEAR::raiseError(null, SYSTEM_COMMAND_COMMAND_PLACEMENT, null, E_USER_WARNING, null, 'System_Command_Error', true);
@@ -311,6 +325,10 @@ class System_Command extends PEAR {
      */
     function pushOperator($in_operator)
     {
+    	if ($this->_initError) {
+            return $this->_initError;
+        }
+
         $operator = isset($this->controlOperators[$in_operator]) ? $this->controlOperators[$in_operator] : $in_operator;
 
         if (is_null($this->previousElement) || in_array($this->previousElement, $this->controlOperators)) {
@@ -339,6 +357,10 @@ class System_Command extends PEAR {
      */
     function execute() 
     {
+    	if ($this->_initError) {
+            return $this->_initError;
+        }
+
         // if the command is empty or if the last element was a control operator, we can't continue
         if (is_null($this->previousElement) || $this->commandStatus == -1 || in_array($this->previousElement, $this->controlOperators)) {
             return PEAR::raiseError(null, SYSTEM_COMMAND_INVALID_COMMAND, null, E_USER_WARNING, $this->systemCommand, 'System_Command_Error', true);
@@ -407,22 +429,7 @@ class System_Command extends PEAR {
      */
     function which($in_cmd)
     {
-        // if we already have a binary, then return it
-        if (is_executable($in_cmd)) {
-            return $in_cmd;
-        }
-
-        $paths = explode(':', $_ENV['PATH']);
-            
-        foreach ($paths as $path) {
-            $location = $path . '/' . $in_cmd;
-                            
-            if (is_executable($location)) {
-                return $location;
-            }
-        }
-
-        return false;
+        return System::which($in_cmd);
     }   
 
     // }}}
