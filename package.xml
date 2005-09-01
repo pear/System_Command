@@ -32,12 +32,11 @@
     <release>
       <license>PHP License</license>
       <state>stable</state>
-      <version>1.0</version>
-      <date>2002-05-25</date>
+      <version>1.0.2</version>
+      <date>2005-xx-xx</date>
       <notes>
-         This is the initial independent PEAR release.
-         
-         There is a known bug that which() does not work on windows platforms and I am looking into options for solving this problem.
+Fix #828: assignement to $this
+Fix #1985: default shell not set
       </notes>
       <filelist>
       <dir name="/" baseinstalldir="System">
