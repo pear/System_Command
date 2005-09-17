@@ -32,11 +32,9 @@
     <release>
       <license>PHP License</license>
       <state>stable</state>
-      <version>1.0.2</version>
+      <version>1.x.x</version>
       <date>2005-xx-xx</date>
       <notes>
-Fix #828: assignement to $this
-Fix #1985: default shell not set
       </notes>
       <filelist>
       <dir name="/" baseinstalldir="System">
