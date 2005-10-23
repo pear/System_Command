@@ -32,9 +32,10 @@
     <release>
       <license>PHP License</license>
       <state>stable</state>
-      <version>1.x.x</version>
-      <date>2005-xx-xx</date>
+      <version>1.0.3</version>
+      <date>2005-10-23</date>
       <notes>
+      fix #5754 Can't set options because "empty" instead of "isset" is used
       </notes>
       <filelist>
       <dir name="/" baseinstalldir="System">
