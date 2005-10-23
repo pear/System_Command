@@ -224,7 +224,7 @@ class System_Command {
 
         $option = strtoupper($in_option);
 
-        if (empty($this->options[$option])) {
+        if (!isset($this->options[$option])) {
             PEAR::raiseError(null, SYSTEM_COMMAND_ERROR, null, E_USER_NOTICE, null, 'System_Command_Error', true);
             return false;
         }
