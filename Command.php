@@ -429,7 +429,13 @@ class System_Command {
      */
     function which($in_cmd)
     {
-        return System::which($in_cmd);
+        // only pass non-empty strings to System::which()
+        if (!is_string($in_cmd) || '' === $in_cmd) {
+            return(false);
+        }
+
+        // explicitly pass false as fallback value
+        return System::which($in_cmd, false);
     }   
 
     // }}}
