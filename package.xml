@@ -29,8 +29,8 @@
       <version>1.0.4</version>
       <date>2006-01-18</date>
       <notes>
-      -bug fix: #6199 System_Command::execute() fails if object instantiated without an argument
-      -new: introduced v2 of package xml
+- fix #6199 System_Command::execute() fails if object instantiated without an argument
+- introduce v2 of Package XML file
       </notes>
       <filelist>
       <dir name="/" baseinstalldir="System">

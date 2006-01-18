@@ -19,18 +19,6 @@
         <email>cconstantine@php.net</email>
         <active>yes</active>
     </lead>
-    <lead>
-        <name>Dan Allen</name>
-        <user>dallen</user>
-        <email>dallen@php.net</email>
-        <active>no</active>
-    </lead>
-    <developer>
-        <name>Anders Johannsen</name>
-        <user>aj</user>
-        <email>anders@johannsen.com</email>
-        <active>no</active>
-    </developer>
     <date>2006-01-18</date>
     <time>16:35:00</time>
     <version>
