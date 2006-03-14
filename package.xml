@@ -26,11 +26,10 @@
     <release>
       <license>PHP License</license>
       <state>stable</state>
-      <version>1.0.4</version>
-      <date>2006-01-18</date>
+      <version>1.0.5</version>
+      <date>2006-03-14</date>
       <notes>
-- fix #6199 System_Command::execute() fails if object instantiated without an argument
-- introduce v2 of Package XML file
+- fix #6268 execute() raises SYSTEM_COMMAND_STDERR error when command exits non-zero
       </notes>
       <filelist>
       <dir name="/" baseinstalldir="System">

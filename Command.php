@@ -41,6 +41,7 @@ define('SYSTEM_COMMAND_COMMAND_PLACEMENT', -8);
 define('SYSTEM_COMMAND_NOHUP_MISSING',     -9);
 define('SYSTEM_COMMAND_NO_OUTPUT',        -10);
 define('SYSTEM_COMMAND_STDERR',           -11);
+define('SYSTEM_COMMAND_NONZERO_EXIT',     -12);
 
 // }}}
 
@@ -147,6 +148,7 @@ class System_Command {
             'OUTPUT'     => true,
             'NOHUP'      => false,
             'BACKGROUND' => false,
+            'STDERR'     => false
         );
 
         // prepare the available control operators
@@ -199,20 +201,32 @@ class System_Command {
     // {{{ setOption()
 
     /**
-     * Sets any option
+     * Sets the value for an option. Each option should be set to true
+     * or false; except the 'SHELL' option which should be a string
+     * naming a shell. The options are:
      * 
-     * The options are currently:
-     * SEQUENCE : Allow a sequence command or not (right now this is always on)
-     * SHUTDOWN : Execute commands via a shutdown function 
-     * SHELL    : Path to shell
-     * OUTPUT   : Output stdout from process
-     * NOHUP    : Use nohup to detach process
-     * BACKGROUND : Run as a background process with &
+     * 'SEQUENCE'   Allow a sequence command or not (right now this is always on);
      *
-     * @param $in_option is a constant, which corresponds to the
-     *                option that should be changed
-     * @param $in_setting is the value of the option currently
-     *                 being toggled.
+     * 'SHUTDOWN'   Execute commands via a shutdown function;
+     *
+     * 'SHELL'      Path to shell;
+     *
+     * 'OUTPUT'     Output stdout from process;
+     *
+     * 'NOHUP'      Use nohup to detach process;
+     *
+     * 'BACKGROUND' Run as a background process with &;
+     *
+     * 'STDERR'     Output on stderr will raise an error, even if
+     *              the command's exit value is zero. The output from
+     *              stderr can be retrieved using the getDebugInfo()
+     *              method of the Pear_ERROR object returned by
+     *              execute().;
+     *
+     * @param string $in_option is a case-sensitive string,
+     *                          corresponding to the option
+     *                          that should be changed
+     * @param mixed $in_setting is the new value for the option
      * @access public
      * @return bool true if succes, else false
      */
@@ -234,6 +248,7 @@ class System_Command {
             case 'SHUTDOWN':
             case 'SEQUENCE':
             case 'BACKGROUND':
+            case 'STDERR':
                 $this->options[$option] = !empty($in_setting);
                 return true;
             break;
@@ -403,11 +418,24 @@ class System_Command {
             exec($shellPipe, $result, $returnVal);
 
             if ($returnVal !== 0) {
-                $error = implode('', file($tmpFile));
-                $return = PEAR::raiseError(null, SYSTEM_COMMAND_STDERR, null, E_USER_WARNING, null, 'System_Command_Error', true);
+                // command returned nonzero; that's always an error
+                $return = PEAR::raiseError(null, SYSTEM_COMMAND_NONZERO_EXIT, null, E_USER_WARNING, null, 'System_Command_Error', true);
+            }
+            else if (!$this->options['STDERR']) {
+                // caller does not care about stderr; return success
+                $return = implode("\n", $result);
             }
             else {
-                $return = implode("\n", $result);
+                // our caller cares about stderr; check stderr output
+                clearstatcache();
+                if (filesize($tmpFile) > 0) {
+                    // the command actually wrote to stderr
+                    $stderr_output = file_get_contents($tmpFile);
+                    $return = PEAR::raiseError(null, SYSTEM_COMMAND_STDERR, null, E_USER_WARNING, $stderr_output, 'System_Command_Error', true);
+                } else {
+                    // total success; return stdout gathered by exec()
+                    $return = implode("\n", $result);
+                }
             }
 
             unlink($tmpFile);
@@ -482,6 +510,7 @@ class System_Command {
                 SYSTEM_COMMAND_NOHUP_MISSING          => 'nohup not found on system',
                 SYSTEM_COMMAND_NO_OUTPUT              => 'output not allowed',
                 SYSTEM_COMMAND_STDERR                 => 'command wrote to stderr',
+                SYSTEM_COMMAND_NONZERO_EXIT           => 'non-zero exit value from command',
             );
         }
 

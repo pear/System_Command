@@ -19,10 +19,10 @@
         <email>cconstantine@php.net</email>
         <active>yes</active>
     </lead>
-    <date>2006-01-18</date>
-    <time>16:35:00</time>
+    <date>2006-03-14</date>
+    <time>16:22:00</time>
     <version>
-        <release>1.0.4</release>
+        <release>1.0.5</release>
         <api>1.0.3</api>
     </version>
     <stability>
@@ -31,8 +31,7 @@
     </stability>
     <license uri="http://www.php.net/license">PHP License</license>
     <notes><![CDATA[
-- fix #6199 System_Command::execute() fails if object instantiated without an argument
-- introduce v2 of Package XML file
+- fix #6199 execute() raises SYSTEM_COMMAND_STDERR error when command exits non-zero
 ]]></notes>
     <contents>
         <dir name="/">
