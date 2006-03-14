@@ -31,7 +31,7 @@
     </stability>
     <license uri="http://www.php.net/license">PHP License</license>
     <notes><![CDATA[
-- fix #6199 execute() raises SYSTEM_COMMAND_STDERR error when command exits non-zero
+- fix #6268 execute() raises SYSTEM_COMMAND_STDERR error when command exits non-zero
 ]]></notes>
     <contents>
         <dir name="/">
