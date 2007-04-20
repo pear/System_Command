@@ -24,7 +24,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <api>stable</api>
     </stability>
     <license uri="http://www.php.net/license">PHP License</license>
-    <notes><![CDATA[- switch to package2.xml
+    <notes><![CDATA[- finally switch to package.xml version 2
 - fix Bug #10781: tmpDir not being set correctly by construtor
 ]]></notes>
     <contents>
