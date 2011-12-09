@@ -148,7 +148,8 @@ class System_Command {
             'OUTPUT'     => true,
             'NOHUP'      => false,
             'BACKGROUND' => false,
-            'STDERR'     => false
+            'STDERR'     => false,
+            'AUTORESET'  => false
         );
 
         // prepare the available control operators
@@ -222,6 +223,9 @@ class System_Command {
      *              stderr can be retrieved using the getDebugInfo()
      *              method of the Pear_ERROR object returned by
      *              execute().;
+     *
+     * 'AUTORESET'  Automatically call reset() after a successful
+     *              call of execute();
      *
      * @param string $in_option is a case-sensitive string,
      *                          corresponding to the option
@@ -408,6 +412,9 @@ class System_Command {
             $line = "system(\"{$this->systemCommand}$suffix\");";
             $function = create_function('', $line);
             register_shutdown_function($function);
+            if ($this->options['AUTORESET']) {
+                $this->reset();
+            }
             return true;
         } 
         else {
@@ -436,6 +443,10 @@ class System_Command {
                     // total success; return stdout gathered by exec()
                     $return = implode("\n", $result);
                 }
+            }
+
+            if ((!PEAR::isError($return)) && ($this->options['AUTORESET'])) {
+                $this->reset();
             }
 
             unlink($tmpFile);
