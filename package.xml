@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>System_Command</name>
  <channel>pear.php.net</channel>
  <summary>PEAR::System_Command is a commandline execution interface.</summary>
@@ -10,8 +10,8 @@
   <email>cconstantine@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-10-25</date>
- <time>23:15:01</time>
+ <date>2011-12-09</date>
+ <time>19:15:17</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.3</api>
@@ -28,9 +28,10 @@ Bug #10781 tmpDir not being set correctly by construtor - cconstantine
 Bug #14836 Wrong category ? - cweiske
  </notes>
  <contents>
-  <dir baseinstalldir="System" name="/">
+  <dir baseinstalldir="/" name="/">
    <file baseinstalldir="System" md5sum="603a480ae569dbe36c88618b9cedec33" name="docs/test.php" role="doc" />
-   <file baseinstalldir="System" md5sum="bf0661aca136c88a03c5a097bb6a3d68" name="Command.php" role="php" />
+   <file baseinstalldir="/" md5sum="19e1ccf4136fbc7d08e59a7944cbf46f" name="System/Command.php" role="php" />
+   <file baseinstalldir="/" md5sum="6d2026768cafd77f43b1018e6cb00468" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -73,7 +74,7 @@ Bug #14836 Wrong category ? - cweiske
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2010-10-25</date>
+   <date>2011-12-09</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
 Automatically built QA release
