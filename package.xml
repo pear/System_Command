@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>System_Command</name>
  <channel>pear.php.net</channel>
  <summary>PEAR::System_Command is a commandline execution interface.</summary>
@@ -10,10 +10,10 @@
   <email>cconstantine@php.net</email>
   <active>yes</active>
  </lead>
- <date>2011-12-09</date>
- <time>19:15:17</time>
+ <date>2012-02-15</date>
+ <time>22:27:41</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.3</api>
  </version>
  <stability>
@@ -22,10 +22,8 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-Automatically built QA release
-Bug #10781 tmpDir not being set correctly by construtor - cconstantine
-
-Bug #14836 Wrong category ? - cweiske
+QA release
+Request #14860 New option: AUTORESET
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -81,6 +79,22 @@ Automatically built QA release
 Bug #10781 tmpDir not being set correctly by construtor - cconstantine
 
 Bug #14836 Wrong category ? - cweiske
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2012-02-15</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+QA release
+Request #14860 New option: AUTORESET
    </notes>
   </release>
  </changelog>
