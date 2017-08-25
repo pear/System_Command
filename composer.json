@@ -1,4 +1,13 @@
 {
+    "name": "pear/system_command",
+    "description": "PHP commandline execution interface",
+    "license": "PHP-3.0",
+    "homepage": "http://pear.php.net/package/System_Command",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=System_Command",
+        "source": "https://github.com/pear/System_Command"
+    },
+    "type": "library",
     "authors": [
         {
             "email": "cconstantine@php.net",
@@ -8,24 +17,13 @@
     ],
     "autoload": {
         "psr-0": {
-            "System": "./"
+            "System": "./System/"
         }
     },
-    "description": "More info available on: http://pear.php.net/package/System_Command",
     "include-path": [
         "./"
     ],
-    "license": "PHP License",
-    "name": "pear/system_command",
-    "support": {
-        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=System_Command",
-        "source": "https://github.com/pear/System_Command"
-    },
-    "type": "library",
     "require": {
-        "pear/pear_exception": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "*"
+        "pear/pear-core-minimal": "^1.10.0"
     }
 }
