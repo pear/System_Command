@@ -48,7 +48,7 @@ define('SYSTEM_COMMAND_NONZERO_EXIT',     -12);
 // {{{ class System_Command
 
 /**
- * The System_Command:: class implements an abstraction for various ways 
+ * The System_Command:: class implements an abstraction for various ways
  * of executing commands (directly using the backtick operator,
  * as a background task after the script has terminated using
  * register_shutdown_function() or as a detached process using nohup).
@@ -119,7 +119,7 @@ class System_Command {
      * @access private
      */
     var $commandStatus = 0;
-    
+
     /**
      * Hold initialization PEAR_Error
      *
@@ -127,15 +127,15 @@ class System_Command {
      * @access private
      **/
     var $_initError = null;
-        
+
     // }}}
     // {{{ constructor
 
     /**
      * Class constructor
-     * 
+     *
      * Defines all necessary constants and sets defaults
-     * 
+     *
      * @access public
      */
     function System_Command($in_shell = null)
@@ -161,7 +161,7 @@ class System_Command {
             'LFIFO' => '<',
             'RFIFO' => '>',
         );
-                
+
         // List of allowed/available shells
         $this->shells = array(
             'sh',
@@ -174,7 +174,7 @@ class System_Command {
             'esh',
             'ksh'
         );
-                                   
+
         // Find the first available shell
         if (empty($this->options['SHELL'])) {
             foreach ($this->shells as $shell) {
@@ -185,7 +185,7 @@ class System_Command {
 
             // see if we still have no shell
             if (empty($this->options['SHELL'])) {
-            	$this->_initError =& PEAR::raiseError(null, SYSTEM_COMMAND_NO_SHELL, null, E_USER_WARNING, null, 'System_Command_Error', true);
+                $this->_initError =& PEAR::raiseError(null, SYSTEM_COMMAND_NO_SHELL, null, E_USER_WARNING, null, 'System_Command_Error', true);
                 return;
             }
         }
@@ -197,7 +197,7 @@ class System_Command {
             return;
         }
     }
-        
+
     // }}}
     // {{{ setOption()
 
@@ -205,7 +205,7 @@ class System_Command {
      * Sets the value for an option. Each option should be set to true
      * or false; except the 'SHELL' option which should be a string
      * naming a shell. The options are:
-     * 
+     *
      * 'SEQUENCE'   Allow a sequence command or not (right now this is always on);
      *
      * 'SHUTDOWN'   Execute commands via a shutdown function;
@@ -246,7 +246,7 @@ class System_Command {
             PEAR::raiseError(null, SYSTEM_COMMAND_ERROR, null, E_USER_NOTICE, null, 'System_Command_Error', true);
             return false;
         }
-                
+
         switch ($option) {
             case 'OUTPUT':
             case 'SHUTDOWN':
@@ -256,25 +256,25 @@ class System_Command {
                 $this->options[$option] = !empty($in_setting);
                 return true;
             break;
-                
+
             case 'SHELL':
                 if (($shell = $this->which($in_setting)) !== false) {
                     $this->options[$option] = $shell;
                     return true;
-                } 
+                }
                 else {
                     PEAR::raiseError(null, SYSTEM_COMMAND_NO_SHELL, null, E_USER_NOTICE, $in_setting, 'System_Command_Error', true);
                     return false;
                 }
             break;
-                        
+
             case 'NOHUP':
                 if (empty($in_setting)) {
                     $this->options[$option] = false;
-                } 
+                }
                 else if ($location = $this->which('nohup')) {
                     $this->options[$option] = $location;
-                } 
+                }
                 else {
                     PEAR::raiseError(null, SYSTEM_COMMAND_NOHUP_MISSING, null, E_USER_NOTICE, null, 'System_Command_Error', true);
                     return false;
@@ -282,7 +282,7 @@ class System_Command {
             break;
         }
     }
-    
+
     // }}}
     // {{{ pushCommand()
 
@@ -302,7 +302,7 @@ class System_Command {
     	if ($this->_initError) {
             return $this->_initError;
         }
-        
+
         if (!is_null($this->previousElement) && !in_array($this->previousElement, $this->controlOperators)) {
             $this->commandStatus = -1;
             $error = PEAR::raiseError(null, SYSTEM_COMMAND_COMMAND_PLACEMENT, null, E_USER_WARNING, null, 'System_Command_Error', true);
@@ -318,7 +318,7 @@ class System_Command {
         array_shift($argv);
         foreach($argv as $arg) {
             if (strpos($arg, '-') === 0) {
-                $command .= ' ' . $arg; 
+                $command .= ' ' . $arg;
             }
             elseif ($arg != '') {
                 $command .= ' ' . escapeshellarg($arg);
@@ -374,7 +374,7 @@ class System_Command {
      *
      * @access public
      */
-    function execute() 
+    function execute()
     {
     	if ($this->_initError) {
             return $this->_initError;
@@ -391,12 +391,12 @@ class System_Command {
                 return PEAR::raiseError(null, SYSTEM_COMMAND_NO_OUTPUT, null, E_USER_WARNING, null, 'System_Command_Error', true);
             }
         }
-                
+
         // if this is not going to stdout, then redirect to /dev/null
         if (empty($this->options['OUTPUT'])) {
             $this->systemCommand .= ' >/dev/null';
         }
-                
+
         $suffix = '';
         // run a command immune to hangups, with output to a non-tty
         if (!empty($this->options['NOHUP'])) {
@@ -406,7 +406,7 @@ class System_Command {
         elseif (!empty($this->options['BACKGROUND'])) {
             $suffix = ' &';
         }
-                
+
         // Register to be run on shutdown
         if (!empty($this->options['SHUTDOWN'])) {
             $line = "system(\"{$this->systemCommand}$suffix\");";
@@ -416,7 +416,7 @@ class System_Command {
                 $this->reset();
             }
             return true;
-        } 
+        }
         else {
             // send stderr to a file so that we can reap the error message
             $tmpFile = tempnam($this->tmpDir, 'System_Command-');
@@ -459,9 +459,9 @@ class System_Command {
 
     /**
      * Functionality similiar to unix 'which'. Searches the path
-     * for the specified program. 
+     * for the specified program.
      *
-     * @param $cmd name of the executable to search for 
+     * @param $cmd name of the executable to search for
      *
      * @access private
      * @return string returns the full path if found, false if not
@@ -475,7 +475,7 @@ class System_Command {
 
         // explicitly pass false as fallback value
         return System::which($in_cmd, false);
-    }   
+    }
 
     // }}}
     // {{{ reset()
@@ -550,7 +550,7 @@ class System_Command {
                 (strtolower(get_class($in_value)) == 'system_command_error' ||
                  is_subclass_of($in_value, 'system_command_error')));
     }
-    
+
     // }}}
 }
 
@@ -592,7 +592,7 @@ class System_Command_Error extends PEAR_Error
             $this->PEAR_Error("Invalid error code: $code", SYSTEM_COMMAND_ERROR, $mode, $level, $debuginfo);
         }
     }
-    
+
     // }}}
 }
 ?>
