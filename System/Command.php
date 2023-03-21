@@ -138,7 +138,7 @@ class System_Command {
      *
      * @access public
      */
-    function System_Command($in_shell = null)
+    function __construct($in_shell = null)
     {
         // Defining constants
         $this->options = array(
