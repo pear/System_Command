@@ -20,9 +20,6 @@
             "System": "./System/"
         }
     },
-    "include-path": [
-        "./"
-    ],
     "require": {
         "pear/pear-core-minimal": "^1.10.0"
     }
