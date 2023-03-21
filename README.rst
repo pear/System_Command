@@ -19,16 +19,6 @@ So in every sense of the word, it gives PHP shell capabilities.
 ============
 Installation
 ============
-
-PEAR
-====
-::
-
-    $ pear install System_Command
-
-
-Composer
-========
 ::
 
     $ composer require pear/system_command
