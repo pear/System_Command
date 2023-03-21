@@ -21,12 +21,6 @@
 // $Id$
 
 // }}}
-// {{{ includes
-
-require_once 'PEAR.php';
-require_once 'System.php';
-
-// }}}
 // {{{ constants
 
 define('SYSTEM_COMMAND_OK',                 1);
