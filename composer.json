@@ -16,9 +16,9 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "System": "./System/"
-        }
+        "classmap": [
+            "System/Command.php"
+        ]
     },
     "require": {
         "pear/pear-core-minimal": "^1.10.0"
